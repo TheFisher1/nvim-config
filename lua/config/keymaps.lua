@@ -35,3 +35,10 @@ map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+-- C++ compile and run
+map("n", "<leader>c", function()
+  local file = vim.fn.expand("%")
+  local name = vim.fn.expand("%:r")
+  vim.cmd("terminal clang++ " .. file .. " -o " .. name .. " && ./" .. name)
+end, { desc = "Compile and Run C++" })
