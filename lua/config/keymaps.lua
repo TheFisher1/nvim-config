@@ -42,3 +42,23 @@ map("n", "<leader>c", function()
   local name = vim.fn.expand("%:r")
   vim.cmd("terminal clang++ " .. file .. " -o " .. name .. " && ./" .. name)
 end, { desc = "Compile and Run C++" })
+
+-- Python with venv
+map("n", "<leader>py", function()
+  local file = vim.fn.expand("%")
+  if vim.fn.isdirectory(".venv") == 1 then
+    vim.cmd("terminal .venv/bin/python " .. file)
+  else
+    vim.cmd("terminal python3 " .. file)
+  end
+end, { desc = "Run Python with venv" })
+
+map("n", "<leader>p", function() 
+  local file = vim.fn.expand("%:p")
+  local venv_python = vim.fn.getcwd() .. "/venv/bin/python"
+  local python_cmd = vim.fn.filereadable(venv_python) == 1 and venv_python or "python "
+  vim.cmd("! " .. python_cmd .. " " .. vim.fn.shellescape(file))
+end, { noremap = true, silent = true, desc = "Run python" })
+
+-- Telescope
+map("n", "<D-p>", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
